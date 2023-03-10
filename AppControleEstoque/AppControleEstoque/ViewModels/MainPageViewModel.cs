@@ -37,9 +37,30 @@ namespace AppControleEstoque.ViewModels
         #endregion
 
         #region Métodos
+
         public void CarregarEstoque()
         {
-            ListaDeProdutosCompleta = _estoqueSqlite.SelectAll();
+            ListaDeProdutosCompleta = _estoqueSqlite.SelectAll ( );
+            //fica presumido que os dados do sqlite sempre vão estar na frente dos da api visto que o usuário poderia fazer alguma atualização off então aqui farei a atualização dos dados
+            MesclarDados ( ListaDeProdutosCompleta, _estoqueService.ObtemListaEstoque ( ) );
+        }
+        
+        private void MesclarDados(List<EstoqueModel> listaSqlite,List<EstoqueModel> listaApi )
+        {
+            foreach (EstoqueModel itemSql in listaSqlite)
+            {
+                //atualiza oq for igual
+                if (itemSql.Id == ( from itemApi in listaApi where itemApi.Id == itemSql.Id select itemApi.Id).FirstOrDefault())
+                {
+                    _estoqueService.AlterarItem ( itemSql );
+                }
+                //adiciona oq estiver a mais
+                else
+                {
+                    _estoqueService.CadastrarItem ( itemSql );
+                }
+
+            }
         }
 
         public void PesquisaProduto( int codigo)
@@ -64,6 +85,7 @@ namespace AppControleEstoque.ViewModels
 
             CarregarEstoque();
             ExibirListaCompleta();
+            _estoqueService.ExcluirItem ( id );
         }
         public EstoqueModel DevolveProdutoPeloCodigo(int codigo)
         {
