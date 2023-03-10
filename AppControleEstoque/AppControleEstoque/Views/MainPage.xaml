@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppControleEstoque.MainPage"
+             Title="Controle de Estoque"
+             NavigationPage.HasNavigationBar="False">
+
+    <StackLayout Margin="15">
+        <StackLayout VerticalOptions="Start">
+            <Label Text="Controle de Estoque" HorizontalOptions="Center" TextColor="Black" FontSize="Title"></Label>
+        </StackLayout>
+        <StackLayout VerticalOptions="FillAndExpand" Margin="0,15,0,0">
+            <Label Text="Lista de produtos:" TextColor="Black" FontSize="Subtitle"></Label>
+                <StackLayout Orientation="Horizontal">
+                    <Entry x:Name="txtCodProd" Placeholder="Pesquise pelo código" HorizontalOptions="FillAndExpand" Keyboard="Numeric" ></Entry>
+                    <Button Text="Pesquisar" Clicked="ButtonPesquisar_Clicked"></Button>
+                </StackLayout>
+            <ScrollView VerticalOptions="FillAndExpand">
+                <StackLayout BindableLayout.ItemsSource="{Binding ListaDeProdutosExibida, Mode=TwoWay}" VerticalOptions="FillAndExpand">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView x:Name="swipeView" HeightRequest="60">
+                                <SwipeView.RightItems>
+                                    <SwipeItem Text="Atualizar" BackgroundColor="Orange" CommandParameter="{Binding Id}" Clicked="SwipeAlterar_Clicked"></SwipeItem>
+                                    <SwipeItem Text="Excluir" BackgroundColor="Red" CommandParameter="{Binding Id}" Clicked="SwipeExcluir_Clicked"></SwipeItem>
+                                </SwipeView.RightItems>
+                                <SwipeView.LeftItems>
+                                    <SwipeItem Text="Atualizar" BackgroundColor="Orange" CommandParameter="{Binding Id}" Clicked="SwipeAlterar_Clicked"></SwipeItem>
+                                    <SwipeItem Text="Excluir" BackgroundColor="Red" CommandParameter="{Binding Id}" Clicked="SwipeExcluir_Clicked"></SwipeItem>
+                                </SwipeView.LeftItems>
+                                <StackLayout HeightRequest="60" Orientation="Horizontal" WidthRequest="300" BackgroundColor="LightGray">
+                                    <Label Text="{Binding Id, StringFormat='{0} - '}" VerticalTextAlignment="Center" Margin="15,0,0,0" />
+                                    <Label Text="{Binding Nome}" VerticalTextAlignment="Center"/>
+                                    <Label Text="{Binding Quantidade, StringFormat='- Quantidade: {0}'}" VerticalTextAlignment="Center"/>
+                                    <Frame HorizontalOptions="EndAndExpand" BackgroundColor="Transparent">
+                                        <Label Text="Arraste"></Label>
+                                    </Frame>
+                                </StackLayout>
+                            </SwipeView>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+        <StackLayout VerticalOptions="End">
+            <Button BackgroundColor="Green" TextColor="White" Text="Adicionar novo produto" Clicked="Button_Clicked_1" ></Button>
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

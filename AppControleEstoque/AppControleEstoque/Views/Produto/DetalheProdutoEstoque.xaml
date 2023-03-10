@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppControleEstoque.Views.Produto.DetalheProdutoEstoque"
+             NavigationPage.HasNavigationBar="False">
+    <StackLayout Margin="15">
+        <StackLayout>
+            <Label x:Name="lblTitulo" HorizontalTextAlignment="Center" FontSize="Title" TextColor="Black"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Código:" TextColor="Black" VerticalTextAlignment="Center" FontSize="Body"/>
+            <Entry HorizontalOptions="FillAndExpand"  x:Name="txtCod" Text="{Binding Produto.Id, Mode=TwoWay}" IsEnabled="False"></Entry>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Nome:" TextColor="Black" VerticalTextAlignment="Center" FontSize="Body"/>
+            <Entry HorizontalOptions="FillAndExpand" x:Name="txtNome" Text="{Binding Produto.Nome, Mode=TwoWay}" MaxLength="200"></Entry>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Quantidade:" TextColor="Black" VerticalTextAlignment="Center" FontSize="Body"/>
+            <Entry HorizontalOptions="FillAndExpand"  Text="{Binding Produto.Quantidade, Mode=TwoWay}" Keyboard="Numeric"></Entry>
+        </StackLayout>
+        <Button Text="Salvar" x:Name="btnSalvar" VerticalOptions="EndAndExpand"></Button>
+    </StackLayout>
+</ContentPage>
